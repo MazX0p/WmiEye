@@ -54,6 +54,7 @@ To use the WmiEye program, follow these steps:
         "condition": "Rule Condition"
     }
 }
+```
 Replace the fields with appropriate values for your rule.
 
 2. Edit the config.h file with the appropriate settings for your environment, such as the name of the WMI event log to monitor and the URL of the Elasticsearch server to send alerts to.
@@ -83,9 +84,9 @@ To add this rule to the program, save it as a file named rule1.json in the sigma
 ## Configuration
 The WmiEye program can be configured using the config.h file. Here are the available options:
 
-LOG_NAME: The name of the WMI event log to monitor. The default value is "Microsoft-Windows-WMI-Activity/Operational".
-ELASTICSEARCH_URL: The URL of the Elasticsearch server to send alerts to. The default value is "http://localhost:9200".
-BOOKMARK_FILE: The path of the bookmark file to use for event monitoring. The default value is "bookmarks.dat". Set to NULL to disable bookmarks.
+- LOG_NAME: The name of the WMI event log to monitor. The default value is `Microsoft-Windows-WMI-Activity/Operational`. 
+- ELASTICSEARCH_URL: The URL of the Elasticsearch server to send alerts to. The default value is "http://localhost:9200". 
+- BOOKMARK_FILE: The path of the bookmark file to use for event monitoring. The default value is "bookmarks.dat". Set to NULL to disable bookmarks. 
 
 ## Limitations
 

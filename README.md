@@ -79,14 +79,14 @@ Here's an example Sigma rule for detecting a malicious PowerShell command:
     }
 }
 ```
-To add this rule to the program, save it as a file named rule1.json in the sigmarules directory.
+To add this rule to the program, save it as a file named `rule1.json` in the sigmarules directory.
 
 ## Configuration
 The WmiEye program can be configured using the config.h file. Here are the available options:
 
 - LOG_NAME: The name of the WMI event log to monitor. The default value is `Microsoft-Windows-WMI-Activity/Operational`. 
-- ELASTICSEARCH_URL: The URL of the Elasticsearch server to send alerts to. The default value is "http://localhost:9200". 
-- BOOKMARK_FILE: The path of the bookmark file to use for event monitoring. The default value is "bookmarks.dat". Set to NULL to disable bookmarks. 
+- ELASTICSEARCH_URL: The URL of the Elasticsearch server to send alerts to. The default value is `http://localhost:9200`. 
+- BOOKMARK_FILE: The path of the bookmark file to use for event monitoring. The default value is `bookmarks.dat`. Set to `NULL` to disable bookmarks. 
 
 ## Limitations
 
@@ -102,15 +102,15 @@ This program is licensed under the MIT License.
 
 ## Monitoring Multiple WMI Event Logs
 
-By default, WmiEye monitors the Microsoft-Windows-WMI-Activity/Operational event log for WMI events. If you want to monitor other event logs as well, you can modify the LOG_NAME parameter in the config.h file. For example, if you want to monitor both the Security and System event logs, you can set the LOG_NAME parameter to "Security,System".
+By default, WmiEye monitors the `Microsoft-Windows-WMI-Activity/Operational` event log for WMI events. If you want to monitor other event logs as well, you can modify the `LOG_NAME parameter` in the `config.h` file. For example, if you want to monitor both the Security and System event logs, you can set the `LOG_NAME` parameter to `Security,System`.
 
 ## Using Sigma Rules from a Directory
 
-In addition to using Sigma rules from individual JSON files, you can also use Sigma rules from a directory. To do this, simply save your Sigma rules in the sigmarules directory with the .json extension. WmiEye will automatically read all JSON files in the directory and use them for monitoring.
+In addition to using Sigma rules from individual JSON files, you can also use Sigma rules from a directory. To do this, simply save your Sigma rules in the sigmarules directory with the `.json` extension. WmiEye will automatically read all JSON files in the directory and use them for monitoring.
 
 ## Disabling Bookmarks
 
-If you don't want WmiEye to use bookmarks to keep track of the last event processed, you can set the BOOKMARK_FILE parameter in the config.h file to NULL. This will disable bookmarks and WmiEye will start monitoring events from the beginning of the event log each time it is run.
+If you don't want WmiEye to use bookmarks to keep track of the last event processed, you can set the `BOOKMARK_FILE` parameter in the `config.h` file to `NULL`. This will disable bookmarks and WmiEye will start monitoring events from the beginning of the event log each time it is run.
 
 ## Using a Different Elasticsearch Server
 
@@ -121,3 +121,12 @@ If you want to send alerts to an Elasticsearch server other than the default `ht
 WmiEye is a powerful tool for detecting threats in the WMI event logs using Sigma rules. It is easy to configure and use, and can be integrated with Elasticsearch for alerting and analysis. By using WmiEye in your environment, you can improve your threat detection and response capabilities and stay one step ahead of potential attackers.
 
 If you have any questions or comments about WmiEye, please feel free to reach out to the project maintainer or submit an issue on the GitHub repository. We welcome any feedback or suggestions for improving the program.
+
+## Acknowledgments
+
+WmiEye was inspired by the [Sigma project](https://github.com/Neo23x0/sigma) and uses the [curl](https://curl.se/) and [cJSON](https://github.com/DaveGamble/cJSON) libraries. Thanks to the developers of these projects for making their work available.
+
+## Contact
+
+If you have any questions or comments about WmiEye, please feel free to reach out to the project maintainer at [Linkedin](https://www.linkedin.com/in/0xmaz).
+

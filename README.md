@@ -96,10 +96,6 @@ The program only monitors the WMI event logs for events that match Sigma rules. 
 The program relies on Sigma rules to detect threats. If a threat is not covered by a Sigma rule, the program will not detect it.
 The program may generate a high volume of alerts if there are many events that match the Sigma rules. You should configure Elasticsearch to handle this volume of data.
 
-## License
-
-This program is licensed under the MIT License.
-
 ## Monitoring Multiple WMI Event Logs
 
 By default, WmiEye monitors the `Microsoft-Windows-WMI-Activity/Operational` event log for WMI events. If you want to monitor other event logs as well, you can modify the `LOG_NAME parameter` in the `config.h` file. For example, if you want to monitor both the Security and System event logs, you can set the `LOG_NAME` parameter to `Security,System`.
@@ -116,11 +112,35 @@ If you don't want WmiEye to use bookmarks to keep track of the last event proces
 
 If you want to send alerts to an Elasticsearch server other than the default `http://localhost:9200` you can modify the `ELASTICSEARCH_URL` parameter in the `config.h` file. For example, if your Elasticsearch server is running on a different port, you can set the `ELASTICSEARCH_URL` parameter to `http://localhost:9201`.
 
+## Advantages of WmiEye and Why Use It if You Have a SIEM Solution?
+
+### Advantages of WmiEye
+
+- WmiEye is lightweight and easy to deploy. It is a standalone program that runs in the background and does not require a lot of system resources.
+- WmiEye uses Sigma rules, which are easy to create and modify. This makes it easy to add new threat detection capabilities to the program without having to write custom code.
+- WmiEye can be integrated with Elasticsearch for alerting and analysis. This allows you to quickly identify and respond to threats in your environment.
+- WmiEye can monitor specific WMI event logs for threats. This makes it more targeted and efficient than a SIEM solution, which may monitor a wide range of events and logs.
+
+### Why Use WmiEye if You Have a SIEM Solution?
+
+While a SIEM solution is a powerful tool for threat detection and response, there are several reasons why you may want to consider using WmiEye in addition to your SIEM solution:
+
+- WmiEye can be used to monitor specific event logs for threats. This makes it more targeted and efficient than a SIEM solution, which may monitor a wide range of events and logs.
+- WmiEye uses Sigma rules, which are easy to create and modify. This makes it easy to add new threat detection capabilities to the program without having to write custom code.
+- WmiEye is lightweight and easy to deploy. It can be used in environments where a full SIEM solution may be too resource-intensive or complex.
+- WmiEye can be used as a complementary tool to your SIEM solution. It can help you identify threats that may be missed by your SIEM solution and provide additional context for analysis and response.
+
+Overall, WmiEye is a valuable tool for threat detection and response in Windows environments. It is easy to use, flexible, and can be integrated with Elasticsearch for alerting and analysis. Whether you have a SIEM solution or not, WmiEye can help you improve your threat detection and response capabilities and stay one step ahead of potential attackers.
+
 ## Conclusion
 
 WmiEye is a powerful tool for detecting threats in the WMI event logs using Sigma rules. It is easy to configure and use, and can be integrated with Elasticsearch for alerting and analysis. By using WmiEye in your environment, you can improve your threat detection and response capabilities and stay one step ahead of potential attackers.
 
 If you have any questions or comments about WmiEye, please feel free to reach out to the project maintainer or submit an issue on the GitHub repository. We welcome any feedback or suggestions for improving the program.
+
+## License
+
+This program is licensed under the MIT License.
 
 ## Acknowledgments
 

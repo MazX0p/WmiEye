@@ -157,7 +157,7 @@ While a SIEM solution is a powerful tool for threat detection and response, ther
 
 Overall, WmiEye is a valuable tool for threat detection and response in Windows environments. It is easy to use, flexible, and can be integrated with Elasticsearch for alerting and analysis. Whether you have a SIEM solution or not, WmiEye can help you improve your threat detection and response capabilities and stay one step ahead of potential attackers.
 
-## If i don't want use ELK ?
+## Log matched events to a local file
 
 One potential function that could be added to WmiEye is the ability to log matched events to a local file for further analysis. This would allow security analysts to review events that have triggered Sigma rules in real-time, without the need to query Elasticsearch or the Windows Event Log directly.
 

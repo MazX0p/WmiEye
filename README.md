@@ -132,6 +132,103 @@ While a SIEM solution is a powerful tool for threat detection and response, ther
 
 Overall, WmiEye is a valuable tool for threat detection and response in Windows environments. It is easy to use, flexible, and can be integrated with Elasticsearch for alerting and analysis. Whether you have a SIEM solution or not, WmiEye can help you improve your threat detection and response capabilities and stay one step ahead of potential attackers.
 
+## If i don't want use ELK ?
+
+One potential function that could be added to WmiEye is the ability to log matched events to a local file for further analysis. This would allow security analysts to review events that have triggered Sigma rules in real-time, without the need to query Elasticsearch or the Windows Event Log directly.
+
+To implement this functionality, you could add a command-line option that specifies the location of the log file, and modify the checkSigmaRules function to write matching events to the file when a match is found. You could also include an option to limit the number of events written to the file, to prevent it from growing too large.
+
+Here's an example of how the new command-line option could be added to the existing code:
+
+```scss
+int main(int argc, char *argv[]) {
+    // ...
+
+    char *log_file = NULL;
+    int max_log_events = -1;
+
+    // Parse command-line options
+    int opt;
+    while ((opt = getopt(argc, argv, "l:m:")) != -1) {
+        switch (opt) {
+        case 'l':
+            log_file = optarg;
+            break;
+        case 'm':
+            max_log_events = atoi(optarg);
+            break;
+        default:
+            printf("Usage: %s [-l log_file] [-m max_log_events] <config_file>\n", argv[0]);
+            return 1;
+        }
+    }
+
+    // ...
+
+    // Open the log file for writing
+    FILE *log_fp = NULL;
+    if (log_file != NULL) {
+        if (fopen_s(&log_fp, log_file, "a") != 0) {
+            printf("Failed to open log file.\n");
+            exit(1);
+        }
+    }
+
+    // Start monitoring events
+    EVT_HANDLE hEvents[1];
+    hEvents[0] = CreateEvent(NULL, TRUE, FALSE, NULL);
+    int log_event_count = 0;
+    while (TRUE) {
+        // Wait for events to become available
+        WaitForMultipleObjects(1, hEvents, FALSE, INFINITE);
+
+        // Get the next available event
+        EVT_HANDLE hEvent;
+        while ((hEvent = getNextEvent(hEventLog)) != NULL) {
+            // Check if the event matches any Sigma rules
+            checkSigmaRules(hEvent, rules, num_rules, elastic_config, log_fp, &log_event_count, max_log_events);
+
+            // Close the event
+            EvtClose(hEvent);
+        }
+
+        // Reset the event object
+        ResetEvent(hEvents[0]);
+    }
+
+    // Cleanup
+    freeSigmaRules(rules, num_rules);
+    EvtClose(hEventLog);
+
+    if (log_fp != NULL) {
+        fclose(log_fp);
+    }
+
+    return 0;
+}
+
+void checkSigmaRules(EVT_HANDLE hEvent, SigmaRule *rules, int num_rules, ElasticConfig elastic_config, FILE *log_fp, int *log_event_count, int max_log_events) {
+    // ...
+
+    // Check the event against each Sigma rule
+    for (int i = 0; i < num_rules; i++) {
+        if (matchSigmaRule(&event_obj, &rules[i])) {
+            // The event matches the Sigma rule. Send an alert to Elasticsearch and write to the log file.
+            sendAlertToElasticsearch(&event_obj, elastic_config);
+
+            if (log_fp != NULL) {
+                writeEventToLogFile(log_fp, &event_obj);
+                (*log_event_count)++;
+
+                // Check if we've reached the maximum number of events to log
+                if (max_log_events > 0 && (*log_event_count) >= max_log_events) {
+                    fclose(log_fp);
+                    log_fp = NULL;
+                    break;
+                }
+           
+```
+
 ## Conclusion
 
 WmiEye is a powerful tool for detecting threats in the WMI event logs using Sigma rules. It is easy to configure and use, and can be integrated with Elasticsearch for alerting and analysis. By using WmiEye in your environment, you can improve your threat detection and response capabilities and stay one step ahead of potential attackers.

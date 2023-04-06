@@ -1,3 +1,5 @@
+![IMG_5999](https://user-images.githubusercontent.com/54814433/230443098-5a1a5062-98a3-4cf9-aac9-9050eccbab8e.JPG)
+
 # WmiEye
 
 WmiEye is a C program that monitors the Windows Management Instrumentation (WMI) event logs for any events that match Sigma rules and sends alerts to Elasticsearch. The program is designed to run in the background and can be used for threat detection and response.

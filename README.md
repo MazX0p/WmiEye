@@ -10,7 +10,7 @@ The program reads Sigma rules from `JSON` or `YMAL` files in the `sigmarules` di
 
 The main features of the WmiEye program are:
 
-- Reads Sigma rules from JSON files in the `sigmarules` directory.
+- Reads Sigma rules from `JSON` or `YMAL` files in the `sigmarules` directory.
 - Monitors the WMI event logs for any events that match the Sigma rules.
 - Sends alerts to Elasticsearch with the event and rule information.
 - Uses bookmarks to keep track of the last event processed and resume monitoring after a restart.

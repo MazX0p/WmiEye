@@ -27,7 +27,7 @@ To build and run the WmiEye program, you need the following:
 
 To install the WmiEye program, follow these steps:
 
-1. Clone the repository to your local machine using the following command: `git clone https://github.com/yourusername/WmiEye.git`
+1. Clone the repository to your local machine using the following command: `git clone https://github.com/MazX0p/WmiEye.git`
 2. Open the solution file `WmiEye.sln` in Visual Studio.
 3. Build the solution.
 4. Install the libcurl and libcjson libraries. You can download the libraries from the following links:

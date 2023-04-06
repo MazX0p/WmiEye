@@ -2,7 +2,7 @@
 
 WmiEye is a C program that monitors the Windows Management Instrumentation (WMI) event logs for any events that match Sigma rules and sends alerts to Elasticsearch. The program is designed to run in the background and can be used for threat detection and response.
 
-The program reads Sigma rules from JSON files in the `sigmarules` directory and compares them with WMI event log entries. If there is a match between an event log entry and a Sigma rule, the program sends an alert to Elasticsearch with the event and rule information. The program also uses bookmarks to keep track of the last event processed and resumes monitoring after a restart.
+The program reads Sigma rules from `JSON` or `YMAL` files in the `sigmarules` directory and compares them with WMI event log entries. If there is a match between an event log entry and a Sigma rule, the program sends an alert to Elasticsearch with the event and rule information. The program also uses bookmarks to keep track of the last event processed and resumes monitoring after a restart.
 
 ## Features
 
@@ -40,7 +40,7 @@ To install the WmiEye program, follow these steps:
 
 To use the WmiEye program, follow these steps:
 
-1. Create a new JSON file in the `sigmarules` directory with the following format:
+1. Create a new `JSON` or `YAML` file in the `sigmarules` directory on the root path of the WmiEye with the following format:
 ```json
 {
     "title": "Rule Title",
@@ -55,11 +55,36 @@ To use the WmiEye program, follow these steps:
     }
 }
 ```
+```yaml
+title: Detect PowerShell Download
+description: Detects a PowerShell download using the WinEventLog provider
+status: experimental
+author: John Doe
+references:
+  - https://example.com
+logsource:
+  provider: WinEventLog
+  product: PowerShell
+  eventid: 4104
+condition: '"https://" in event_data'
+output:
+  title: PowerShell Download
+  description: A PowerShell download was detected.
+  fields:
+    - name: url
+      expression: event_data.url
+```
 Replace the fields with appropriate values for your rule.
 
 2. Edit the config.h file with the appropriate settings for your environment, such as the name of the WMI event log to monitor and the URL of the Elasticsearch server to send alerts to.
 
-Run the program with administrator privileges.
+3. Run the program with administrator privileges.
+
+```sh
+WmiEye.exe <config_file>
+```
+or put the config file on root directory.
+
 The program will read the Sigma rules from the sigmarules directory and monitor the WMI event logs for any events that match the rules. If a match is found, the program sends an alert to Elasticsearch with the event and rule information.
 
 ## Example
@@ -140,7 +165,7 @@ To implement this functionality, you could add a command-line option that specif
 
 Here's an example of how the new command-line option could be added to the existing code:
 
-```scss
+```c
 int main(int argc, char *argv[]) {
     // ...
 
